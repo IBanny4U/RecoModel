@@ -26,7 +26,7 @@ if st.button("Submit"):
         # Random question တစ်ခုရွေး
         
         question = filtered.sample(1)["Question"].values[0]
-        st.write("Recommended Question:", question)
+        st.markdown("### Recommended Question")
         st.write(question)
     else:
         st.write("No question found for that subject.")

@@ -1,19 +1,29 @@
 import streamlit as st
-import pickle
+import pandas as pd
+import requests
+from io import StringIO
 
-# Load ML model + vectorizer
-with open("recommender.pkl", "rb") as f:
-    model, vectorizer = pickle.load(f)
+# ✅ Google Drive direct link (uc?id format)
+url = "https://drive.google.com/uc?id=1VODI54uN5BGNE1W2oQcHcS-Zncss4jhg"
 
+# Download file content
+response = requests.get(url)
+data = StringIO(response.text)
+
+# Dataset ဖတ် (comma-separated CSV)
+df = pd.read_csv(data, sep=",", encoding="utf-8", on_bad_lines="skip")
+
+# Streamlit UI
 st.title("📚 Question Recommender")
 
-question_input = st.text_input("Enter a question:")
+subject_input = st.text_input("Enter subject:")
 
-if st.button("Predict Subject"):
-    if question_input.strip():
-        # Transform input question into vector
-        question_vec = vectorizer.transform([question_input])
-        prediction = model.predict(question_vec)[0]
-        st.write("Predicted Subject:", prediction)
+if st.button("Submit"):
+    # Subject အလိုက် filter
+    filtered = df[df["Subject"].str.lower() == subject_input.lower()]
+    if not filtered.empty:
+        # Random question တစ်ခုရွေး
+        question = filtered.sample(1)["Question"].values[0]
+        st.write("Recommended Question:", question)
     else:
-        st.write("Please enter a question.")
+        st.write("No question found for that subject.")

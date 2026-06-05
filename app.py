@@ -6,7 +6,7 @@ import pickle
 url = "https://drive.google.com/file/d/1VODI54uN5BGNE1W2oQcHcS-Zncss4jhg/view?usp=sharing"
 
 # Dataset ဖတ်
-df = pd.read_csv("url")
+df = pd.read_csv(url)
 
 # Load recommender function
 with open("recommender.pkl", "rb") as f:

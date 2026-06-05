@@ -22,8 +22,11 @@ if st.button("Submit"):
     # Subject အလိုက် filter
     filtered = df[df["Subject"].str.lower() == subject_input.lower()]
     if not filtered.empty:
+        
         # Random question တစ်ခုရွေး
+        
         question = filtered.sample(1)["Question"].values[0]
         st.write("Recommended Question:", question)
+        st.write(question)
     else:
         st.write("No question found for that subject.")

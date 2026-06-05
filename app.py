@@ -7,11 +7,13 @@ with open("recommender.pkl", "rb") as f:
 
 st.title("📚 Question Recommender")
 
-subject_input = st.text_input("Enter subject:")
+question_input = st.text_input("Enter a question:")
 
-if st.button("Submit"):
-    # Transform input subject into vector
-    subject_vec = vectorizer.transform([subject_input])
-    prediction = model.predict(subject_vec)[0]
-
-    st.write("Predicted Subject:", prediction)
+if st.button("Predict Subject"):
+    if question_input.strip():
+        # Transform input question into vector
+        question_vec = vectorizer.transform([question_input])
+        prediction = model.predict(question_vec)[0]
+        st.write("Predicted Subject:", prediction)
+    else:
+        st.write("Please enter a question.")

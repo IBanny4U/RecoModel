@@ -5,7 +5,7 @@ from io import StringIO
 import pickle
 
 # Google Drive direct link
-url = "https://drive.google.com/uc?id=1VODI54uN5BGNE1W2oQcHcS-Zncss4jhg"
+url = "https://drive.google.com/file/d/1VODI54uN5BGNE1W2oQcHcS-Zncss4jhg/view?usp=sharing"
 
 # Download file content
 response = requests.get(url)
